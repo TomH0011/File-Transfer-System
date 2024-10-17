@@ -1,10 +1,22 @@
 import java.net.*;
+// for input and output streams
 import java.io.*;
+// Encrypting and decrypting
+import javax.crypto.*;
+import javax.crypto.spec.SecretKeySpec;
+import java.security.Key;
 
 
 public class Server {
+
+    // AES Algorithm and key for convenience
+    private static final String ALGORITHM = "AES";
+    private static final byte[] keyValue = "2468101214161820".getBytes();
+
     public static void main(String[] args) {
         try {
+
+
             // Create the Server Socket with the port number 5000
             ServerSocket ss = new ServerSocket(5000);
             System.out.println("Waiting for client");
@@ -12,7 +24,19 @@ public class Server {
             System.out.println("Sever connected to the Client");
 
             // Initialise the file we want to send
-            File file = new File("file_path_name");
+            File file = new File("Some_file_path_you_want_to_send");
+
+            // Create the cipher object for AES 128 Encryption
+            Cipher cipher = Cipher.getInstance(ALGORITHM);
+
+            // This creates a new SecretKeySpec object, which is a type of Key.
+            // The SecretKeySpec class is used to convert a simple byte array (keyValue)
+            // into a key object that can be used by the Cipher
+            Key key = new SecretKeySpec(keyValue, ALGORITHM);
+
+            // This initializes the Cipher object to be ready for encryption
+            cipher.init(Cipher.ENCRYPT_MODE, key);
+
             // turns the file into an InputStream
             // Input streams read the contents as a stream of bytes
             FileInputStream fileIn = new FileInputStream(file);
@@ -21,6 +45,8 @@ public class Server {
             // This is a nice way to send packets of data over a connection
             OutputStream out = server.getOutputStream();
 
+            // Now to take our output stream and our cipher and encode it
+            CipherOutputStream cipherOut = new CipherOutputStream(out, cipher);
 
             // This is to read the file in chunks of size 4096 bytes to be more efficient
             // buffer temporarily stores these chunks as it's reading before sending them
@@ -40,6 +66,8 @@ public class Server {
 
             // Now to free up resources
             fileIn.close();
+            // Want to close the cipher now as well
+            cipherOut.close();
             server.close();
 
         } catch (Exception e) {
