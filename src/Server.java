@@ -3,18 +3,31 @@ import java.net.*;
 import java.io.*;
 // Encrypting and decrypting
 import javax.crypto.*;
-import javax.crypto.spec.SecretKeySpec;
-import java.security.Key;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 
 
 public class Server {
 
     // AES Algorithm and key for convenience
     private static final String ALGORITHM = "AES";
-    private static final byte[] keyValue = "2468101214161820".getBytes();
+    //private static final byte[] keyValue = "2468101214161820".getBytes();
 
     public static void main(String[] args) {
+
+        SecretKey aesKey = null; // Declare the AES key here
+        ServerSocket serverSocket = null;
+        Socket clientSocket = null;
+
         try {
+
+            // Constructing the key generator class
+            KeyGenerator keyGen = KeyGenerator.getInstance(ALGORITHM);
+
+            keyGen.init(128); // AES 128-bit key size
+
+            // Dynamically creating the AES key
+            aesKey = keyGen.generateKey(); // Generate the AES key
 
 
             // Create the Server Socket with the port number 5000
@@ -24,18 +37,14 @@ public class Server {
             System.out.println("Sever connected to the Client");
 
             // Initialise the file we want to send
-            File file = new File("Some_file_path_you_want_to_send");
+            File file = new File("D:\\Google downloads\\CV_TESTING_DO_NOT_COPY.pdf");
 
             // Create the cipher object for AES 128 Encryption
             Cipher cipher = Cipher.getInstance(ALGORITHM);
 
-            // This creates a new SecretKeySpec object, which is a type of Key.
-            // The SecretKeySpec class is used to convert a simple byte array (keyValue)
-            // into a key object that can be used by the Cipher
-            Key key = new SecretKeySpec(keyValue, ALGORITHM);
 
             // This initializes the Cipher object to be ready for encryption
-            cipher.init(Cipher.ENCRYPT_MODE, key);
+            cipher.init(Cipher.ENCRYPT_MODE, aesKey);
 
             // turns the file into an InputStream
             // Input streams read the contents as a stream of bytes
@@ -74,4 +83,12 @@ public class Server {
             System.out.println(e);
         }
     }
+
+    // Method to send the AES key to the client
+    private static void sendKey(Socket clientSocket, SecretKey aesKey) throws IOException {
+        OutputStream keyOut = clientSocket.getOutputStream();
+        keyOut.write(aesKey.getEncoded()); // Send the key bytes to the client
+        keyOut.flush(); // Flush the output stream
+    }
 }
+
