@@ -37,7 +37,7 @@ public class Server {
             System.out.println("Sever connected to the Client");
 
             // Initialise the file we want to send
-            File file = new File("D:\\Google downloads\\CV_TESTING_DO_NOT_COPY.pdf");
+            File file = new File("Some File Path");
 
             // Create the cipher object for AES 128 Encryption
             Cipher cipher = Cipher.getInstance(ALGORITHM);

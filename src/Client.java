@@ -37,7 +37,7 @@ public class Client {
             CipherInputStream cipherIn = new CipherInputStream(in, cipher);
 
             // Save file to desired path
-            FileOutputStream fileOut = new FileOutputStream("C:\\Users\\tomjh\\Desktop\\TCP pdf transfer\\received_file.pdf");
+            FileOutputStream fileOut = new FileOutputStream("Some File Path\\received_file.pdf");
 
             // Buffer for reading the data in chunks
             byte[] buffer = new byte[4096];
