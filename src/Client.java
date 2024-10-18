@@ -11,7 +11,6 @@ public class Client {
 
     // AES Algorithm and key for decrypting
     private static final String ALGORITHM = "AES";
-    // private static final byte[] keyValue = "2468101214161820".getBytes();
 
 
     public Client() throws NoSuchAlgorithmException {

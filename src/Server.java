@@ -11,7 +11,6 @@ public class Server {
 
     // AES Algorithm and key for convenience
     private static final String ALGORITHM = "AES";
-    //private static final byte[] keyValue = "2468101214161820".getBytes();
 
     public static void main(String[] args) {
 
