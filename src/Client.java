@@ -1,7 +1,5 @@
 import java.net.*;
-//Input and output streams
 import java.io.*;
-// Encrypting and decrypting
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.NoSuchAlgorithmException;
@@ -26,7 +24,7 @@ public class Client {
             // Create the cipher object for AES 128 Encryption
             Cipher cipher = Cipher.getInstance(ALGORITHM);
 
-            // This initializes the Cipher object to be ready for encryption
+            // This initializes the Cipher object to be ready for decryption
             cipher.init(Cipher.DECRYPT_MODE, aesKey);
 
             // Get the input stream to receive the file from server
@@ -65,7 +63,7 @@ public class Client {
         byte[] keyBytes = new byte[16]; // Buffer for the key (128 bits = 16 bytes)
 
         int bytesRead = keyIn.read(keyBytes); // Read the key bytes
-        // Incase it doesnt read the key
+        // In case it doesn't read the key correctly
         if (bytesRead < 16) {
             throw new IOException("Key received is too short");
         }
