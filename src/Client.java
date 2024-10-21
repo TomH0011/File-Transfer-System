@@ -16,7 +16,10 @@ public class Client {
 
     public static void main(String[] args) {
         try {
-            Socket client = new Socket("localhost", 5000);
+            // For local hosting
+            //Socket client = new Socket("localhost", 5000);
+            // For inter - IP file translations alter the IPv4 with your hosting servers IP
+            Socket client = new Socket("your public IP Goes here", 5000);
             System.out.println("Client is connected");
 
             SecretKey aesKey = receiveKey(client); // Get the key from server

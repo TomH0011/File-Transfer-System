@@ -21,14 +21,17 @@ public class Server {
             // Constructing the key generator class
             KeyGenerator keyGen = KeyGenerator.getInstance(ALGORITHM);
 
-            keyGen.init(128); // AES 128-bit key size
+            keyGen.init(256); // AES 128-bit key size
 
             // Dynamically creating the AES key
             aesKey = keyGen.generateKey(); // Generate the AES key
 
 
             // Create the Server Socket with the port number 5000
-            ServerSocket ss = new ServerSocket(5000);
+            // Server for a local host
+            // ServerSocket ss = new ServerSocket(5000);
+            // Server for
+            ServerSocket ss = new ServerSocket(5000, 50, InetAddress.getByName("0.0.0.0"));
             System.out.println("Waiting for client");
             Socket server = ss.accept();
             System.out.println("Sever connected to the Client");
