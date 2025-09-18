@@ -7,7 +7,7 @@ A secure file transfer system with both command-line and GUI interfaces, featuri
 - **AES-256 Encryption**: Secure file transfer with strong encryption
 - **GUI Interface**: User-friendly Java Swing interface with drag-and-drop support
 - **Command-line Interface**: Traditional server/client command-line tools
-- **Cross-platform**: Works on Windows, macOS, and Linux
+- **Cross-platform**: Works on Windows, macOS, and Linux I believe
 - **File Selection**: Manual file selection or drag-and-drop functionality
 - **Real-time Logging**: Activity logs for monitoring transfers
 
@@ -20,7 +20,7 @@ A secure file transfer system with both command-line and GUI interfaces, featuri
    # Windows
    build.bat
    
-   # Linux/macOS
+   # macOS and Linux too I believe
    ./build.sh
    ```
 
